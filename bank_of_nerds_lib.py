@@ -156,9 +156,9 @@ def deposit(customer, bank):
     print("Deposit to which account?")
     if customer.accounts:
         for account in enumerate(customer.accounts):
-            print(account[0], account[1].type)
+            print(int(account[0]) + 1, account[1].type)
         print("\nEnter the number of the desired account.")
-        account = int(input(">>"))
+        account = int(input(">>")) -1
 
         if account < len(customer.accounts):
             print("Current balance:", customer.accounts[account].money)
@@ -182,9 +182,9 @@ def withdraw(customer, bank):
     print("\nWithdraw from which account?")
     if customer.accounts:
         for account in enumerate(customer.accounts):
-            print(account[0], account[1].type)
+            print(int(account[0]) +1, account[1].type)
         print("\nEnter the number of the desired account.")
-        account = int(input(">>"))
+        account = int(input(">>")) -1
 
         if account >= len(customer.accounts):
             print("\nAccount does not exist.")
