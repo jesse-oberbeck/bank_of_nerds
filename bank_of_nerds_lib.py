@@ -1,3 +1,6 @@
+import sys
+
+
 class Bank:
 
     # Class for containing customers, and generating customer IDs.
@@ -27,6 +30,9 @@ class Customer:
         self.accounts = []
 
     def information(self):
+
+        # Shows the user the current balance of all their accounts.
+
         print("")
         if self.accounts:
             for account in self.accounts:
@@ -57,7 +63,9 @@ class Account:
             print("\nInsufficient funds.")
 
     def emergency_withdraw(self, amount):
+
         # For overdrafting.
+
         self.money -= amount
 
 
@@ -89,8 +97,10 @@ class Retirement(Account):
         self.type = "Retirement"
 
     def withdraw(self, amount, customer):
+
         # Redefinition of withraw to prevent the action until
         # age 67
+
         if int(customer.age) <= 67:
             print("\nToo young to withdraw.")
             return
@@ -112,7 +122,9 @@ class MMF(Account):
         self.transactions = 0
 
     def deposit(self, amount):
+
         # Redefinition of deposit to limit transactions to 2.
+
         if self.transactions < 2:
             if amount > 0 and self.transactions < 2:
                 self.money += amount
@@ -123,7 +135,9 @@ class MMF(Account):
             print("\nMontly transaction limit already met.")
 
     def withdraw(self, amount, customer):
+
         # Redefinition of withdraw to limit transactions to 2.
+
         if self.transactions < 2:
             if amount > 0 and self.money - amount > 0:
                 self.money -= amount
@@ -145,6 +159,7 @@ def deposit(customer, bank):
             print(account[0], account[1].type)
         print("\nEnter the number of the desired account.")
         account = int(input(">>"))
+
         if account < len(customer.accounts):
             print("Current balance:", customer.accounts[account].money)
             amount = int(input("How much will you deposit?\n>>"))
@@ -170,11 +185,13 @@ def withdraw(customer, bank):
             print(account[0], account[1].type)
         print("\nEnter the number of the desired account.")
         account = int(input(">>"))
+
         if account >= len(customer.accounts):
             print("\nAccount does not exist.")
             mainMenu(customer, bank)
         print("\nCurrent balance:", customer.accounts[account].money)
         amount = int(input("How much will you withdraw?\n>>"))
+
         check = overdraft_protect(customer, bank, customer.accounts[account],
                                   amount)
         if check == 1:
@@ -312,7 +329,7 @@ def firstMenu(bank):
     elif choice == "2":
         oldCustomer(bank)
     elif choice == "3":
-        return
+        sys.exit(0)
     else:
         firstMenu(bank)
 
