@@ -1,8 +1,8 @@
 class Bank:
 
-    #Class for containing customers, and generating customer IDs.
+    # Class for containing customers, and generating customer IDs.
 
-    num_customers = 0;
+    num_customers = 0
 
     def __init__(self):
         self.customers = []
@@ -15,9 +15,9 @@ class Bank:
 
 class Customer:
 
-    #Customer class contains identifying information for each
-    #customer, such as name. Also contains all of the customer's
-    #accounts.
+    # Customer class contains identifying information for each
+    # customer, such as name. Also contains all of the customer's
+    # accounts.
 
     def __init__(self, first, last, age):
         self.ID = 0
@@ -37,8 +37,8 @@ class Customer:
 
 class Account:
 
-    #Account parent class. Contains money, and has basic
-    #deposit and withdraw abilities.
+    # Account parent class. Contains money, and has basic
+    # deposit and withdraw abilities.
 
     def __init__(self):
         self.money = 0
@@ -59,7 +59,7 @@ class Account:
 
 class Savings(Account):
 
-    #Subtype of account.
+    # Subtype of account.
 
     def __init__(self):
         super().__init__()
@@ -68,7 +68,7 @@ class Savings(Account):
 
 class Checking(Account):
 
-    #Subtype of account.
+    # Subtype of account.
 
     def __init__(self):
         super().__init__()
@@ -77,16 +77,16 @@ class Checking(Account):
 
 class Retirement(Account):
 
-    #Subtype of account. Only able to withdraw from this type
-    #after age 67.
+    # Subtype of account. Only able to withdraw from this type
+    # after age 67.
 
     def __init__(self):
         super().__init__()
         self.type = "Retirement"
 
     def withdraw(self, amount, customer):
-        #Redefinition of withraw to prevent the action until
-        #age 67
+        # Redefinition of withraw to prevent the action until
+        # age 67
         if int(customer.age) <= 67:
             print("\nToo young to withdraw.")
             return
@@ -99,8 +99,8 @@ class Retirement(Account):
 
 class MMF(Account):
 
-    #Subtype of account. The Money Market Fund is only able to
-    #be changed (deposit/withdrawl) twice per month (per run).
+    # Subtype of account. The Money Market Fund is only able to
+    # be changed (deposit/withdrawl) twice per month (per run).
 
     def __init__(self):
         super().__init__()
@@ -108,7 +108,7 @@ class MMF(Account):
         self.transactions = 0
 
     def deposit(self, amount):
-        #Redefinition of deposit to limit transactions to 2.
+        # Redefinition of deposit to limit transactions to 2.
         if self.transactions < 2:
             if amount > 0 and self.transactions < 2:
                 self.money += amount
@@ -119,7 +119,7 @@ class MMF(Account):
             print("\nMontly transaction limit already met.")
 
     def withdraw(self, amount, customer):
-        #Redefinition of withdraw to limit transactions to 2.
+        # Redefinition of withdraw to limit transactions to 2.
         if self.transactions < 2:
             if amount > 0 and self.money - amount > 0:
                 self.money -= amount
@@ -133,7 +133,7 @@ class MMF(Account):
 
 def deposit(customer, bank):
 
-    #Provides interaction for depositing funds into selected account.
+    # Provides interaction for depositing funds into selected account.
 
     print("Deposit to which account?")
     if customer.accounts:
@@ -157,7 +157,7 @@ def deposit(customer, bank):
 
 def withdraw(customer, bank):
 
-    #Provides interaction for withdrawing money from the given account.
+    # Provides interaction for withdrawing money from the given account.
 
     account = None
     print("\nWithdraw from which account?")
@@ -181,8 +181,8 @@ def withdraw(customer, bank):
 
 def create(customer, bank):
 
-    #Provides interaction to the user for building and adding
-    #an account of a user chosen type.
+    # Provides interaction to the user for building and adding
+    # an account of a user chosen type.
 
     print("\nSelect Account Type:\n")
     print("1. Checking")
@@ -210,11 +210,10 @@ def create(customer, bank):
         create(customer)
 
 
-
 def mainMenu(customer, bank):
 
-    #Once a customer has been added or found, this menu shows
-    #them each of their options.
+    # Once a customer has been added or found, this menu shows
+    # them each of their options.
 
     print("\n", customer.first, customer.last, ", what would you like to do?")
     print("1. Deposit")
@@ -246,7 +245,7 @@ def mainMenu(customer, bank):
 
 def newCustomer(bank):
 
-    #Provides interaction for adding a new customer to the bank.
+    # Provides interaction for adding a new customer to the bank.
 
     print("\nWelcome to Nerd Bank!\n")
     first = input("Enter your first name: ")
@@ -257,10 +256,11 @@ def newCustomer(bank):
     print("\n\tYour new customer ID is:", new.ID, "\n")
     mainMenu(new, bank)
 
+
 def oldCustomer(bank):
 
-    #Provides interacton for finding an existing customer and their
-    #accounts (if any).
+    # Provides interacton for finding an existing customer and their
+    # accounts (if any).
 
     customer = None
     ID = input("Enter your customer ID, or press enter: ")
@@ -294,7 +294,7 @@ def oldCustomer(bank):
 
 def firstMenu(bank):
 
-    #Starting point for user interacton.
+    # Starting point for user interacton.
 
     print("1. New Customer")
     print("2. Returning Customer")
@@ -308,5 +308,3 @@ def firstMenu(bank):
         return
     else:
         firstMenu(bank)
-
-
