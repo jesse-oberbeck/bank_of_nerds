@@ -56,6 +56,9 @@ class Account:
         else:
             print("\nInsufficient funds.")
 
+    def emergency_withdraw(self, amount):
+        #For overdrafting.
+        self.money -= amount
 
 class Savings(Account):
 
@@ -166,12 +169,15 @@ def withdraw(customer, bank):
             print(account[0], account[1].type)
         print("\nEnter the number of the desired account.")
         account = int(input(">>"))
-        if account > len(customer.accounts):
+        if account >= len(customer.accounts):
             print("\nAccount does not exist.")
             mainMenu(customer, bank)
         print("\nCurrent balance:", customer.accounts[account].money)
         amount = int(input("How much will you withdraw?\n>>"))
-        customer.accounts[account].withdraw(amount, customer)
+        check = overdraft_protect(customer, bank,
+                          customer.accounts[account], amount)#################
+        if check == 1:
+            customer.accounts[account].withdraw(amount, customer)
         print("\nNew balance:", customer.accounts[account].money)
         mainMenu(customer, bank)
     else:
@@ -308,3 +314,28 @@ def firstMenu(bank):
         return
     else:
         firstMenu(bank)
+
+
+def overdraft_protect(customer, bank, account, amount):
+
+    # Overdraft protection for customers.
+
+    if account.type == "MMF" or account.type == "Retirement":
+        return(1)
+    flag = 0
+    if account.money < amount:
+        for acc in customer.accounts:
+            if acc.type == "MMF" or acc.type == "Retirement":
+                continue
+            if acc.money >= amount:
+                acc.emergency_withdraw(amount + 35)
+                flag = 1
+                print("Overdraft protection has been activated.")
+                print("You will be charged $35.")
+        if flag == 0:
+            account.emergency_withdraw(amount + 35)
+            print("Account has been overdrawn.")
+            print("Money will be dispensed,")
+            print("but a fee of $35 will be charged.")
+    else:
+        return(1)
