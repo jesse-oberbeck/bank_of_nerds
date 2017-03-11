@@ -57,8 +57,9 @@ class Account:
             print("\nInsufficient funds.")
 
     def emergency_withdraw(self, amount):
-        #For overdrafting.
+        # For overdrafting.
         self.money -= amount
+
 
 class Savings(Account):
 
@@ -174,8 +175,8 @@ def withdraw(customer, bank):
             mainMenu(customer, bank)
         print("\nCurrent balance:", customer.accounts[account].money)
         amount = int(input("How much will you withdraw?\n>>"))
-        check = overdraft_protect(customer, bank,
-                          customer.accounts[account], amount)#################
+        check = overdraft_protect(customer, bank, customer.accounts[account],
+                                  amount)
         if check == 1:
             customer.accounts[account].withdraw(amount, customer)
         print("\nNew balance:", customer.accounts[account].money)
